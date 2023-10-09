@@ -12,26 +12,32 @@ abstract class LocalStorageService implements BaseInitService {
 
 class LocalStorageServiceImpl implements LocalStorageService {
   LocalStorageServiceImpl();
-  late SharedPreferences preferences;
+  SharedPreferences? preferences;
 
   @override
   Future<void> init() async => preferences = await SharedPreferences.getInstance();
 
   @override
-  String? get locale => preferences.getString(StorageKeys.localeKey);
+  String? get locale => preferences?.getString(StorageKeys.localeKey);
 
   @override
-  Future<void> setLocale(String locale) =>
-      preferences.setString(StorageKeys.localeKey, locale).whenComplete(() => logLocalStorage({
+  Future<void> setLocale(String locale) async {
+    if (preferences != null) {
+      preferences!.setString(StorageKeys.localeKey, locale).whenComplete(() => logLocalStorage({
             'locale': locale,
           }));
+    }
+  }
 
   @override
-  bool get isLightTheme => preferences.getBool(StorageKeys.isLightThemeKey) ?? true;
+  bool get isLightTheme => preferences?.getBool(StorageKeys.isLightThemeKey) ?? true;
 
   @override
-  Future<void> setLightTheme(bool isLightTheme) =>
-      preferences.setBool(StorageKeys.isLightThemeKey, isLightTheme).whenComplete(() => logLocalStorage({
+  Future<void> setLightTheme(bool isLightTheme) async {
+    if (preferences != null) {
+      await preferences!.setBool(StorageKeys.isLightThemeKey, isLightTheme).whenComplete(() => logLocalStorage({
             'isLightTheme': isLightTheme,
           }));
+    }
+  }
 }
