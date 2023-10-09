@@ -126,33 +126,37 @@ class _CounterButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (counterNotifier.showAddButton)
-          FloatingActionButton(
-            heroTag: 'add',
-            onPressed: () {
-              counterNotifier.add(!context.read<ThemeNotifier>().isLightTheme);
-            },
-            child: const Icon(Icons.add),
-          )
-        else
-          const Hero(
-            tag: 'add',
-            child: SizedBox(height: 56),
+        SizedBox(
+          height: 56,
+          width: 56,
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 200),
+            scale: counterNotifier.showAddButton ? 1 : 0,
+            child: FloatingActionButton(
+              heroTag: 'add',
+              onPressed: () {
+                counterNotifier.add(!context.read<ThemeNotifier>().isLightTheme);
+              },
+              child: const Icon(Icons.add),
+            ),
           ),
+        ),
         const SizedBox(height: 20),
-        if (counterNotifier.showRemoveButton)
-          FloatingActionButton(
-            heroTag: 'remove',
-            onPressed: () {
-              counterNotifier.remove(!context.read<ThemeNotifier>().isLightTheme);
-            },
-            child: const Icon(Icons.remove),
-          )
-        else
-          const Hero(
-            tag: 'remove',
-            child: SizedBox(height: 56),
+        SizedBox(
+          height: 56,
+          width: 56,
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 200),
+            scale: counterNotifier.showRemoveButton ? 1 : 0,
+            child: FloatingActionButton(
+              heroTag: 'remove',
+              onPressed: () {
+                counterNotifier.remove(!context.read<ThemeNotifier>().isLightTheme);
+              },
+              child: const Icon(Icons.remove),
+            ),
           ),
+        )
       ],
     );
   }
