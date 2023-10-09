@@ -34,7 +34,7 @@ bool get _showFirebase => true;
 bool get _logLocalNotificationsService => true;
 bool get _logDebouncer => false;
 
-void logData(dynamic data) => _logger.v(data);
+void logData(dynamic data) => _logger.t(data);
 
 void logInfo(dynamic data) => _logger.i(data);
 
