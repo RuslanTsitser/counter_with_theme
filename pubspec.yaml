@@ -29,5 +29,5 @@ flutter:
 
 flutter_intl:
   enabled: true
-  arb_dir: lib/core/services/localization_service/l10n
-  output_dir: lib/core/services/localization_service/generated
+  arb_dir: lib/core/presentation/localization/l10n
+  output_dir: lib/core/presentation/localization/generated
