@@ -16,16 +16,16 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   Future<void> _getWeather(Emitter<WeatherState> emit) async {
     emit(WeatherLoading());
     try {
-      // final granted = await _weatherRepository.checkPermission();
-      // if (granted) {
-      final location = await _weatherRepository.getLocation();
-      final weather = await _weatherRepository.getWeather(location.$1, location.$2);
-      emit(WeatherLoaded(weather));
-      // } else {
-      //   logErrorBlOC('Permission denied');
+      final granted = await _weatherRepository.checkPermission();
+      if (granted) {
+        final location = await _weatherRepository.getLocation();
+        final weather = await _weatherRepository.getWeather(location.$1, location.$2);
+        emit(WeatherLoaded(weather));
+      } else {
+        logErrorBlOC('Permission denied');
 
-      //   emit(WeatherError('Permission denied'));
-      // }
+        emit(WeatherError('Permission denied'));
+      }
     } catch (e) {
       logErrorBlOC(e.toString());
       emit(WeatherError(e.toString()));
