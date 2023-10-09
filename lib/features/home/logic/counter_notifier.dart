@@ -5,13 +5,25 @@ class CounterNotifier extends ChangeNotifier with ChangeNotifierObserverMixin {
   int _counter = 0;
   int get counter => _counter;
 
-  void add() {
+  void add(bool isDoubleIncrement) {
     _counter++;
+    if (isDoubleIncrement) {
+      _counter++;
+    }
+    if (_counter > 10) {
+      _counter = 10;
+    }
     notifyListeners();
   }
 
-  void remove() {
+  void remove(bool isDoubleDecrement) {
     _counter--;
+    if (isDoubleDecrement) {
+      _counter--;
+    }
+    if (_counter < 0) {
+      _counter = 0;
+    }
     notifyListeners();
   }
 

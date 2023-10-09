@@ -123,7 +123,7 @@ class _CounterButtons extends StatelessWidget {
           FloatingActionButton(
             heroTag: 'add',
             onPressed: () {
-              counterNotifier.add();
+              counterNotifier.add(!context.read<ThemeNotifier>().isLightTheme);
             },
             child: const Icon(Icons.add),
           )
@@ -137,7 +137,7 @@ class _CounterButtons extends StatelessWidget {
           FloatingActionButton(
             heroTag: 'remove',
             onPressed: () {
-              counterNotifier.remove();
+              counterNotifier.remove(!context.read<ThemeNotifier>().isLightTheme);
             },
             child: const Icon(Icons.remove),
           )
