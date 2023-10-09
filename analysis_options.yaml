@@ -1,1 +1,29 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_relative_imports: false
+    # prefer_single_quotes: true
+    prefer_void_to_null: true
+    cancel_subscriptions: true
+    always_declare_return_types: true
+    unnecessary_brace_in_string_interps: true
+    avoid_classes_with_only_static_members: false
+
+analyzer:
+  strong-mode:
+    # strict-casts: false
+    # strict-raw-dynamic: false
+  language:
+    strict-casts: true
+    # strict-raw-types: true
+  errors:
+    invalid_annotation_target: ignore
+    lines_longer_than_80_chars: ignore
+    missing_required_param: error
+    # todo: ignore
+    fixme: ignore
+  exclude:
+    - lib/**.g.dart
+    - lib/**.freezed.dart
+    - lib/core/presentation/localization/generated/intl/**.dart
