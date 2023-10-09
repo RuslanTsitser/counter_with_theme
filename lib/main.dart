@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:counter_with_theme/core/presentation/localization/app_localization.dart';
 import 'package:counter_with_theme/core/presentation/router/app_router.dart';
 import 'package:counter_with_theme/core/presentation/theme/theme_notifier.dart';
@@ -48,14 +49,17 @@ class _MainAppState extends State<MainApp> {
         ChangeNotifierProvider(create: (context) => ThemeNotifier(InjectionWidget.of(context).localStorageService)),
         ChangeNotifierProvider(create: (context) => AppLocalization(InjectionWidget.of(context).localStorageService)),
       ],
-      builder: (context, _) => MaterialApp.router(
-        locale: context.watch<AppLocalization>().locale,
-        localizationsDelegates: context.watch<AppLocalization>().localizationsDelegates,
-        supportedLocales: context.watch<AppLocalization>().supportedLocales,
-        theme: ThemeData(),
-        darkTheme: ThemeData.dark(),
-        themeMode: context.watch<ThemeNotifier>().isLightTheme ? ThemeMode.light : ThemeMode.dark,
-        routerConfig: InjectionWidget.of(context).appRouter,
+      builder: (context, _) => ThemeProvider(
+        initTheme: context.watch<ThemeNotifier>().isLightTheme ? ThemeData() : ThemeData.dark(),
+        builder: (context, data) => MaterialApp.router(
+          locale: context.watch<AppLocalization>().locale,
+          localizationsDelegates: context.watch<AppLocalization>().localizationsDelegates,
+          supportedLocales: context.watch<AppLocalization>().supportedLocales,
+          // theme: ThemeData(),
+          // darkTheme: ThemeData.dark(),
+          // themeMode: context.watch<ThemeNotifier>().isLightTheme ? ThemeMode.light : ThemeMode.dark,
+          routerConfig: InjectionWidget.of(context).appRouter,
+        ),
       ),
     );
   }

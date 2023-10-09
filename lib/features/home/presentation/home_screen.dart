@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:counter_with_theme/core/presentation/localization/generated/l10n.dart';
 import 'package:counter_with_theme/core/presentation/theme/theme_notifier.dart';
 import 'package:counter_with_theme/features/home/logic/counter_notifier.dart';
@@ -41,22 +42,24 @@ class HomeScreenMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).weatherCounter),
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            WeatherWidget(),
-            SizedBox(height: 20),
-            _CounterWidget(),
-          ],
+    return ThemeSwitchingArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(S.of(context).weatherCounter),
         ),
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              WeatherWidget(),
+              SizedBox(height: 20),
+              _CounterWidget(),
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: const _Buttons(),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: const _Buttons(),
     );
   }
 }
@@ -96,12 +99,16 @@ class _OtherButtons extends StatelessWidget {
           child: const Icon(Icons.cloud),
         ),
         const SizedBox(height: 20),
-        FloatingActionButton(
-          heroTag: 'theme',
-          onPressed: () {
-            context.read<ThemeNotifier>().toggleTheme();
-          },
-          child: const Icon(Icons.palette),
+        ThemeSwitcher(
+          builder: (context) => FloatingActionButton(
+            heroTag: 'theme',
+            onPressed: () {
+              context.read<ThemeNotifier>().toggleTheme().then((value) => ThemeSwitcher.of(context).changeTheme(
+                    theme: context.read<ThemeNotifier>().isLightTheme ? ThemeData() : ThemeData.dark(),
+                  ));
+            },
+            child: const Icon(Icons.palette),
+          ),
         )
       ],
     );
