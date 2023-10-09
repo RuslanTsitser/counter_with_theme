@@ -1,7 +1,10 @@
 import 'package:counter_with_theme/core/presentation/localization/generated/l10n.dart';
 import 'package:counter_with_theme/core/presentation/theme/theme_notifier.dart';
 import 'package:counter_with_theme/features/home/logic/counter_notifier.dart';
+import 'package:counter_with_theme/features/weather/data/weather_repository.dart';
+import 'package:counter_with_theme/features/weather/logic/bloc/weather_bloc.dart';
 import 'package:counter_with_theme/features/weather/presentation/weather_widget.dart';
+import 'package:counter_with_theme/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +16,18 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        RepositoryProvider<WeatherRepository>(
+            create: (context) => WeatherRepositoryImpl(
+                  InjectionWidget.of(context).permissionService,
+                  InjectionWidget.of(context).weatherService,
+                  InjectionWidget.of(context).locationService,
+                )),
         ChangeNotifierProvider(create: (_) => CounterNotifier()),
+        BlocProvider(
+          create: (context) => WeatherBloc(
+            context.read<WeatherRepository>(),
+          ),
+        ),
       ],
       child: const HomeScreenMain(),
     );
@@ -76,7 +90,9 @@ class _OtherButtons extends StatelessWidget {
       children: [
         FloatingActionButton(
           heroTag: 'weather',
-          onPressed: () {},
+          onPressed: () {
+            context.read<WeatherBloc>().add(GetWeatherEvent());
+          },
           child: const Icon(Icons.cloud),
         ),
         const SizedBox(height: 20),
