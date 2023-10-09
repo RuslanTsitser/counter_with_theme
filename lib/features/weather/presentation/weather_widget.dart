@@ -12,10 +12,20 @@ class WeatherWidget extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           WeatherLoading() => const CircularProgressIndicator(),
-          WeatherLoaded() => Text(state.weather),
+          WeatherLoaded() => _Details(state.weather),
           _ => Text(S.of(context).pressTheIconToGetYourLocation),
         };
       },
     );
+  }
+}
+
+class _Details extends StatelessWidget {
+  const _Details(this.details);
+  final String details;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('${S.of(context).weatherIn}$details');
   }
 }

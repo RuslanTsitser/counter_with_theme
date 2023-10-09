@@ -12,6 +12,11 @@ class WeatherServiceImpl implements WeatherService {
   Future<String> getWeather(double lat, double lng) async {
     WeatherFactory wf = WeatherFactory(WeatherKeys.apiKey);
     Weather? weather = await wf.currentWeatherByLocation(lat, lng);
-    return weather.toString();
+    final city = weather.areaName ?? '';
+    final country = weather.country ?? '';
+    final temp = weather.temperature?.celsius?.round() ?? 0;
+    final tempF = weather.temperature?.fahrenheit?.round() ?? 0;
+
+    return '$country, $city: $temp°C ($tempF°F)';
   }
 }

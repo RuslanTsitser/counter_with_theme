@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Press the icon to get your location"),
         "weatherCounter":
             MessageLookupByLibrary.simpleMessage("Weather counter"),
+        "weatherIn": MessageLookupByLibrary.simpleMessage("Weather in "),
         "youHavePushedTheButtonThisManyTimes":
             MessageLookupByLibrary.simpleMessage(
                 "You have pushed the button this many times: ")
