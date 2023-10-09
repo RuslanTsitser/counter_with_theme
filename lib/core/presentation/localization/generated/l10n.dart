@@ -69,6 +69,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Press the icon to get your location`
+  String get pressTheIconToGetYourLocation {
+    return Intl.message(
+      'Press the icon to get your location',
+      name: 'pressTheIconToGetYourLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

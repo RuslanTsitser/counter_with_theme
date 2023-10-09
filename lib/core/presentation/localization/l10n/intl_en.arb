@@ -1,4 +1,5 @@
 {
   "youHavePushedTheButtonThisManyTimes": "You have pushed the button this many times: ",
-  "weatherCounter": "Weather counter"
+  "weatherCounter": "Weather counter",
+  "pressTheIconToGetYourLocation": "Press the icon to get your location"
 }

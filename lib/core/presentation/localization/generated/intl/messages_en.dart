@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "pressTheIconToGetYourLocation": MessageLookupByLibrary.simpleMessage(
+            "Press the icon to get your location"),
         "weatherCounter":
             MessageLookupByLibrary.simpleMessage("Weather counter"),
         "youHavePushedTheButtonThisManyTimes":
