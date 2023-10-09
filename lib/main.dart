@@ -1,10 +1,13 @@
+import 'package:counter_with_theme/core/presentation/localization/app_localization.dart';
 import 'package:counter_with_theme/core/presentation/router/app_router.dart';
+import 'package:counter_with_theme/core/presentation/theme/theme_notifier.dart';
 import 'package:counter_with_theme/core/services/local_storage_service/local_storage_service.dart';
 import 'package:counter_with_theme/core/services/location_service/location_service.dart';
 import 'package:counter_with_theme/core/services/permission/permission_service.dart';
 import 'package:counter_with_theme/core/services/weather_service/weather_service.dart';
 import 'package:counter_with_theme/injection.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
@@ -37,8 +40,20 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: InjectionWidget.of(context).appRouter,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeNotifier(InjectionWidget.of(context).localStorageService)),
+        ChangeNotifierProvider(create: (context) => AppLocalization(InjectionWidget.of(context).localStorageService)),
+      ],
+      builder: (context, _) => MaterialApp.router(
+        locale: context.watch<AppLocalization>().locale,
+        localizationsDelegates: context.watch<AppLocalization>().localizationsDelegates,
+        supportedLocales: context.watch<AppLocalization>().supportedLocales,
+        theme: ThemeData(),
+        darkTheme: ThemeData.dark(),
+        themeMode: context.watch<ThemeNotifier>().isLightTheme ? ThemeMode.light : ThemeMode.dark,
+        routerConfig: InjectionWidget.of(context).appRouter,
+      ),
     );
   }
 }

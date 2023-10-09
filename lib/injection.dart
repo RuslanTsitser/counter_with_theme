@@ -30,7 +30,7 @@ class InjectionWidget extends InheritedWidget {
     return true;
   }
 
-  Future<void> init() async => await Future.wait([
+  Future<void> init() => Future.wait([
         localStorageService.init(),
       ]);
 }
