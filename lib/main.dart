@@ -5,11 +5,14 @@ import 'package:counter_with_theme/core/services/local_storage_service/local_sto
 import 'package:counter_with_theme/core/services/location_service/location_service.dart';
 import 'package:counter_with_theme/core/services/permission/permission_service.dart';
 import 'package:counter_with_theme/core/services/weather_service/weather_service.dart';
+import 'package:counter_with_theme/core/utils/logging/app_bloc_observer.dart';
 import 'package:counter_with_theme/injection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  Bloc.observer = AppBlocObserver();
   runApp(
     InjectionWidget(
       localStorageService: LocalStorageServiceImpl(),
