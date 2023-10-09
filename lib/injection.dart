@@ -32,6 +32,5 @@ class InjectionWidget extends InheritedWidget {
 
   Future<void> init() async => await Future.wait([
         localStorageService.init(),
-        weatherService.init(),
       ]);
 }
